@@ -19,7 +19,7 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddDbContext<StudentDbContext>(options => 
+    builder.Services.AddDbContext<StudentDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     var app = builder.Build();
@@ -37,7 +37,7 @@ try
 
     app.Run();
 }
-catch(Exception ex)
+catch (Exception ex)
 {
     logger.Error(ex, "Stopped program because of exception");
 }
@@ -45,4 +45,3 @@ finally
 {
     LogManager.Shutdown();
 }
-

@@ -11,15 +11,16 @@ namespace YulyaTimofeevaKt_42_21.Database
         DbSet<Student> Students { get; set; }
         DbSet<Group> Groups { get; set; }
 
+        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Добавляем конфигурации к таблицам
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
-        }
-
-        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
-        {
         }
 
         /*public class StudentDbContextFactory : IDesignTimeDbContextFactory<StudentDbContext>
