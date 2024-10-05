@@ -10,6 +10,7 @@ namespace YulyaTimofeevaKt_42_21.Database
         //Добавляем таблицы
         DbSet<Student> Students { get; set; }
         DbSet<Group> Groups { get; set; }
+        DbSet<Subject> Subjects { get; set; }
 
         public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
         {
@@ -21,16 +22,7 @@ namespace YulyaTimofeevaKt_42_21.Database
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectConfiguration());
         }
-
-        /*public class StudentDbContextFactory : IDesignTimeDbContextFactory<StudentDbContext>
-        {
-            public StudentDbContext CreateDbContext(string[] args)
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<StudentDbContext>();
-                optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=student_db");
-                return new StudentDbContext(optionsBuilder.Options);
-            }
-        }*/
     }
 }
