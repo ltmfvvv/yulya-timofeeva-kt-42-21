@@ -3,5 +3,6 @@
     public class StudentFIOFilter
     {
         public string? FIO { get; set; }
+        //public bool DeletionStatus { get; set; }
     }
 }

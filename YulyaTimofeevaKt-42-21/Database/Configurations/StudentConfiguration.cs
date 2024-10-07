@@ -53,6 +53,13 @@ namespace YulyaTimofeevaKt_42_21.Database.Configurations
                 .HasColumnType(ColumnType.Int)
                 .HasComment("Идентификатор группы");
 
+            //Статус удаления
+            builder.Property(p => p.DeletionStatus)
+                .IsRequired()
+                .HasColumnName("Deletion status")
+                .HasColumnType(ColumnType.Bool)
+                .HasComment("Статус удаления");
+
             builder.ToTable(TableName)
                 .HasOne(p => p.Group)
                 .WithMany()
@@ -63,7 +70,7 @@ namespace YulyaTimofeevaKt_42_21.Database.Configurations
             builder.ToTable(TableName)
                 .HasIndex(p => p.GroupID, $"idx_{TableName}_fk_f_group_id");
 
-            //Явная автоподгрузкасвязанной сущности
+            //Явная автоподгрузка связанной сущности
             builder.Navigation(p => p.Group)
                 .AutoInclude();
         }

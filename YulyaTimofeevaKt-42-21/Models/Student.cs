@@ -11,5 +11,6 @@ namespace YulyaTimofeevaKt_42_21.Models
         public int GroupID { get; set; }
         [JsonIgnore]
         public Group? Group { get; set; }
+        public bool DeletionStatus { get; set; }
     }
 }
