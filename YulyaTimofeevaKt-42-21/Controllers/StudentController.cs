@@ -43,5 +43,49 @@ namespace YulyaTimofeevaKt_42_21.Controllers
             var students = await _studentService.GetStudentsByDeletionStatusAsync(filter, cancellationToken);
             return Ok(students);
         }
+
+        [HttpPost("AddNewStudent")]
+        public IActionResult AddStudent([FromBody] Student student)
+        {
+            //проверка на корректность ввода
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _context.Students.Add(student);//добавление в коллекцию
+            _context.SaveChanges();
+            return Ok(student);
+        }
+
+        [HttpPost("EditStudent")]
+        public IActionResult EditStudent(string lastname, [FromBody] Student editedStudent)
+        {
+            var inBaseStudent = _context.Students.FirstOrDefault(w => w.LastName == lastname);//поиск студента по фамилии в бд
+            if (inBaseStudent == null)
+            {
+                return NotFound();
+            }
+            //изменение данных о студенте
+            inBaseStudent.FirstName = editedStudent.FirstName;
+            inBaseStudent.LastName = editedStudent.LastName;
+            inBaseStudent.Middlename = editedStudent.Middlename;
+            inBaseStudent.GroupID = editedStudent.GroupID;
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete("DeleteStudent")]
+        public IActionResult DeleteStudent(string lastname, [FromBody] Student editedStudent)
+        {
+            var inBaseStudent = _context.Students.FirstOrDefault(g => g.LastName == lastname);//поиск студента по фамилии в бд
+            if (inBaseStudent == null)
+            {
+                return NotFound();
+            }
+            //удаление данных о студенте
+            _context.Students.Remove(inBaseStudent);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

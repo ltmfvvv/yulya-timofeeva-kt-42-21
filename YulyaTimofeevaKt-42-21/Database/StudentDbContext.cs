@@ -8,9 +8,9 @@ namespace YulyaTimofeevaKt_42_21.Database
     public class StudentDbContext : DbContext
     {
         //Добавляем таблицы
-        DbSet<Student> Students { get; set; }
-        DbSet<Group> Groups { get; set; }
-        DbSet<Subject> Subjects { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
         public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
         {
