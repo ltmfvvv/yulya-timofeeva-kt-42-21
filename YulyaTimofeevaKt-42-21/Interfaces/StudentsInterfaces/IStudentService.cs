@@ -9,6 +9,7 @@ namespace YulyaTimofeevaKt_42_21.Interfaces.StudentsInterfaces
     {
         public Task<Student[]> GetStudentsByGroupAsync(StudentGroupFilter filter, CancellationToken cancellationToken);
         public Task<Student[]> GetStudentsByFIOAsync(StudentFIOFilter filter, CancellationToken cancellationToken);
+        public Task<Student[]> GetStudentsByFIOAllAsync(StudentFIOAllFilter filter, CancellationToken cancellationToken);
         public Task<Student[]> GetStudentsByDeletionStatusAsync(StudentDeletionStatusFilter filter, CancellationToken cancellationToken);
     }
 
@@ -33,6 +34,16 @@ namespace YulyaTimofeevaKt_42_21.Interfaces.StudentsInterfaces
                 //.Where(w => w.DeletionStatus == filter.DeletionStatus).ToArrayAsync(cancellationToken);
             return students;
         }
+
+        public Task<Student[]> GetStudentsByFIOAllAsync(StudentFIOAllFilter filter, CancellationToken cancellationToken = default)
+        {
+            var students = _dbContext.Set<Student>()
+                //поиск по имени, фамилии и отчеству
+                .Where(w => (w.FirstName == filter.Name) & (w.LastName == filter.LastName) & (w.Middlename == filter.MiddleName)).ToArrayAsync(cancellationToken);
+            //.Where(w => w.DeletionStatus == filter.DeletionStatus).ToArrayAsync(cancellationToken);
+            return students;
+        }
+
         public Task<Student[]> GetStudentsByDeletionStatusAsync(StudentDeletionStatusFilter filter, CancellationToken cancellationToken = default)
         {
             var students = _dbContext.Set<Student>()

@@ -37,6 +37,14 @@ namespace YulyaTimofeevaKt_42_21.Controllers
             return Ok(students);
         }
 
+        [HttpPost("GetStudentsByFIOAll")]
+        public async Task<IActionResult> GetStudentsByFIOAllAsync(StudentFIOAllFilter filter, CancellationToken cancellationToken = default)
+        {
+            var students = await _studentService.GetStudentsByFIOAllAsync(filter, cancellationToken);
+            return Ok(students);
+        }
+
+
         [HttpPost("GetStudentsByDeletionStatus")]
         public async Task<IActionResult> GetStudentsByDeletionStatusAsync(StudentDeletionStatusFilter filter, CancellationToken cancellationToken = default)
         {
