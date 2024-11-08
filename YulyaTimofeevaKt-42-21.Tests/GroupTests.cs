@@ -13,7 +13,7 @@ namespace YulyaTimofeevaKt_42_21.Tests
             //arrange
             var testGroup = new Group
             {
-                GroupName = "KT-42-21"
+                GroupName = "สา-42-21"
             };
 
             //act

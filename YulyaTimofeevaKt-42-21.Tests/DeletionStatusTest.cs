@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace YulyaTimofeevaKt_42_21.Tests
 {
-    public class StudentIntegrationTests
+    public class DeletionStatusTests
     {
         public readonly DbContextOptions<StudentDbContext> _dbContextOptions;
 
-        public StudentIntegrationTests()
+        public DeletionStatusTests()
         {
             _dbContextOptions = new DbContextOptionsBuilder<StudentDbContext>()
             .UseInMemoryDatabase(databaseName: "student_db")
@@ -52,7 +52,7 @@ namespace YulyaTimofeevaKt_42_21.Tests
                     FirstName = "A",
                     LastName = "A",
                     Middlename = "A",
-                    GroupID = 3,
+                    GroupID = 1,
                     DeletionStatus = false,
                 },
                 new Student
@@ -68,7 +68,7 @@ namespace YulyaTimofeevaKt_42_21.Tests
                     FirstName = "A",
                     LastName = "A",
                     Middlename = "B",
-                    GroupID = 3,
+                    GroupID = 1,
                     DeletionStatus = true,
                 }
             };
@@ -76,32 +76,14 @@ namespace YulyaTimofeevaKt_42_21.Tests
 
             await ctx.SaveChangesAsync();
 
-            var filterIDGroup = new Filters.StudentFilters.StudentGroupFilter
+            var filterDEL = new Filters.StudentFilters.StudentDeletionStatusFilter
             {
-                GroupName = "КТ-31-21"
+                DeletionStatus = true
             };
-            var IdGroupsResult = await studentService.GetStudentsByGroupAsync(filterIDGroup, CancellationToken.None);
-
-            Assert.Equal(3, IdGroupsResult.Length);
-
-            //var filterFIO = new Filters.StudentFilters.StudentFIOAllFilter
-            //{
-            //    Name = "A",
-            //    LastName = "A",
-            //    MiddleName ="A",
-            //};
-            //var studentsResult = await studentService.GetStudentsByFIOAllAsync(filterFIO, CancellationToken.None);
-
-            //Assert.Equal(2, studentsResult.Length);
-
-            //var filterDEL = new Filters.StudentFilters.StudentDeletionStatusFilter
-            //{
-            //    DeletionStatus = true
-            //};
-            //var studentsDelResult = await studentService.GetStudentsByDeletionStatusAsync(filterDEL, CancellationToken.None);
+            var studentsDelResult = await studentService.GetStudentsByDeletionStatusAsync(filterDEL, CancellationToken.None);
 
             // Assert
-            //Assert.Equal(2, studentsDelResult.Length);
+            Assert.Equal(2, studentsDelResult.Length);
         }
     }
 }
